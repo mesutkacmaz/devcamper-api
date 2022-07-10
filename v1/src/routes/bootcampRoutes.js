@@ -16,6 +16,10 @@ router
   .get(getBootcamps)
   .post(validate(schemas.createValidation), createBootcamp)
 
-router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp)
+router
+  .route('/:id')
+  .get(getBootcamp)
+  .patch(updateBootcamp)
+  .delete(deleteBootcamp)
 
 module.exports = router
