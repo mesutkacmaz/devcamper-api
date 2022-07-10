@@ -1,4 +1,6 @@
 const express = require('express')
+const validate = require('../middlewares/validate')
+const schemas = require('../validations/bootcampValidations')
 const {
   getBootcamps,
   getBootcamp,
@@ -9,7 +11,10 @@ const {
 
 const router = express.Router()
 
-router.route('/').get(getBootcamps).post(createBootcamp)
+router
+  .route('/')
+  .get(getBootcamps)
+  .post(validate(schemas.createValidation), createBootcamp)
 
 router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp)
 

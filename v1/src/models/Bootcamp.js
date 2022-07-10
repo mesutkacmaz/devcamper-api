@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const logger = require('../scripts/logger/bootcampLogger')
 
 const BootcampSchema = new mongoose.Schema(
   {
@@ -96,5 +97,12 @@ const BootcampSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
+
+BootcampSchema.post('save', (doc) => {
+  logger.log({
+    level: 'info',
+    message: doc,
+  })
+})
 
 module.exports = mongoose.model('Bootcamp', BootcampSchema)
