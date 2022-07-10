@@ -8,7 +8,9 @@ loaders()
 
 const app = express()
 
-app.listen(process.env.APP_PORT, () => {
+app.use(express.json())
+
+const server = app.listen(process.env.APP_PORT, () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on http://localhost:${process.env.APP_PORT}`
   )
@@ -17,8 +19,8 @@ app.listen(process.env.APP_PORT, () => {
 })
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err.message}.red`)
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`)
   // Close server & exit process
   server.close(() => process.exit(1))
 })
