@@ -2,7 +2,7 @@ const express = require('express')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
-const { bootcampRoutes } = require('./routes/index')
+const { bootcampRoutes, courseRoutes } = require('./routes/index')
 
 config()
 loaders()
@@ -17,6 +17,7 @@ const server = app.listen(process.env.APP_PORT, () => {
   )
 
   app.use('/api/v1/bootcamps', bootcampRoutes)
+  app.use('/api/v1/courses', courseRoutes)
   app.use(errorHandler)
 })
 
