@@ -22,7 +22,7 @@ router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius)
 router
   .route('/:id')
   .get(getBootcamp)
-  .patch(updateBootcamp)
+  .patch(validate(schemas.updateValidation), updateBootcamp)
   .delete(deleteBootcamp)
 
 module.exports = router
