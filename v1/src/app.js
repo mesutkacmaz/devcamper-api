@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
@@ -10,6 +11,10 @@ loaders()
 const app = express()
 
 app.use(express.json())
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 const server = app.listen(process.env.APP_PORT, () => {
   console.log(
