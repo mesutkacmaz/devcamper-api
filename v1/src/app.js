@@ -1,5 +1,7 @@
+const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
+const fileUpload = require('express-fileupload')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
@@ -15,6 +17,10 @@ app.use(express.json())
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
+app.use(fileUpload())
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 const server = app.listen(process.env.APP_PORT, () => {
   console.log(

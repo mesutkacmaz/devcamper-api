@@ -1,6 +1,6 @@
 const express = require('express')
 const validate = require('../middlewares/validate')
-const schemas = require('../validations/bootcampValidations')
+const schemas = require('../validations/bootcampValidation')
 const {
   getBootcamps,
   getBootcamp,
@@ -8,6 +8,7 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
+  uploadBootcampPhoto,
 } = require('../controllers/bootcampController')
 const courseRouter = require('./courseRoutes')
 
@@ -21,6 +22,8 @@ router
   .post(validate(schemas.createValidation), createBootcamp)
 
 router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius)
+
+router.route('/:id/photo').patch(uploadBootcampPhoto)
 
 router
   .route('/:id')
