@@ -30,3 +30,29 @@ exports.register = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({ success: true, data: user })
 })
+
+// @desc      Login user
+// @route     POST /api/v1/auth/login
+// @access    Public
+exports.login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body
+
+  // Check for user
+  const user = await User.findOne({ email })
+
+  if (!user) {
+    return next(new ErrorResponse('Invalid credentials', 401))
+  }
+
+  // Check if password matches
+  const isMatch = await user.matchPassword(password)
+
+  if (!isMatch) {
+    return next(new ErrorResponse('Invalid credentials', 401))
+  }
+
+  const accessToken = generateAccessToken(user)
+  const refreshToken = generateRefreshToken(user)
+
+  res.status(200).json({ success: true, tokens: { accessToken, refreshToken } })
+})
