@@ -9,10 +9,12 @@
   "author": "Mesut Kaçmaz",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
     "node-geocoder": "^4.2.0",
