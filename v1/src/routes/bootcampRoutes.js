@@ -1,7 +1,7 @@
 const express = require('express')
 const validate = require('../middlewares/validate')
 const advancedResults = require('../middlewares/advancedResults')
-const { protect } = require('../middlewares/auth')
+const { protect, authorize } = require('../middlewares/auth')
 const schemas = require('../validations/bootcampValidation')
 const {
   getBootcamps,
@@ -22,16 +22,28 @@ router.use('/:bootcampId/courses', courseRouter)
 router
   .route('/')
   .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
-  .post(protect, validate(schemas.createValidation), createBootcamp)
+  .post(
+    protect,
+    authorize('publisher', 'admin'),
+    validate(schemas.createValidation),
+    createBootcamp
+  )
 
 router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius)
 
-router.route('/:id/photo').patch(protect, uploadBootcampPhoto)
+router
+  .route('/:id/photo')
+  .patch(protect, authorize('publisher', 'admin'), uploadBootcampPhoto)
 
 router
   .route('/:id')
   .get(getBootcamp)
-  .patch(protect, validate(schemas.updateValidation), updateBootcamp)
-  .delete(protect, deleteBootcamp)
+  .patch(
+    protect,
+    authorize('publisher', 'admin'),
+    validate(schemas.updateValidation),
+    updateBootcamp
+  )
+  .delete(protect, authorize('publisher', 'admin'), deleteBootcamp)
 
 module.exports = router
