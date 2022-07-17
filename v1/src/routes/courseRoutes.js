@@ -1,6 +1,7 @@
 const express = require('express')
 const validate = require('../middlewares/validate')
 const advancedResults = require('../middlewares/advancedResults')
+const { protect } = require('../middlewares/auth')
 const schemas = require('../validations/courseValidation')
 const {
   getCourses,
@@ -22,11 +23,11 @@ router
     }),
     getCourses
   )
-  .post(validate(schemas.createValidation), addCourse)
+  .post(protect, validate(schemas.createValidation), addCourse)
 router
   .route('/:id')
   .get(getCourse)
-  .patch(validate(schemas.updateValidation), updateCourse)
-  .delete(deleteCourse)
+  .patch(protect, validate(schemas.updateValidation), updateCourse)
+  .delete(protect, deleteCourse)
 
 module.exports = router

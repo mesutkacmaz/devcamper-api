@@ -1,10 +1,7 @@
 const ErrorResponse = require('../scripts/utils/errorResponse')
-const {
-  generateAccessToken,
-  generateRefreshToken,
-} = require('../scripts/utils/jwt')
 const asyncHandler = require('../middlewares/asyncHandler')
 const User = require('../models/User')
+const sendTokenResponse = require('../scripts/utils/authResponse')
 
 // @desc      Register user
 // @route     POST /api/v1/auth/register
@@ -51,8 +48,5 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Invalid credentials', 401))
   }
 
-  const accessToken = generateAccessToken(user)
-  const refreshToken = generateRefreshToken(user)
-
-  res.status(200).json({ success: true, tokens: { accessToken, refreshToken } })
+  sendTokenResponse(user, 200, res)
 })
