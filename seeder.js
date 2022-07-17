@@ -5,6 +5,7 @@ require('dotenv').config()
 // Load models
 const Bootcamp = require('./v1/src/models/Bootcamp')
 const Course = require('./v1/src/models/Course')
+const User = require('./v1/src/models/User')
 
 // Connect to DB
 mongoose.connect(
@@ -21,12 +22,16 @@ const bootcamps = JSON.parse(
 const courses = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8')
 )
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
+)
 
 // Import into DB
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps)
     await Course.create(courses)
+    await User.create(users)
 
     console.log('Data Imported...')
     process.exit()
@@ -40,6 +45,7 @@ const deleteData = async () => {
   try {
     await Bootcamp.deleteMany()
     await Course.deleteMany()
+    await User.deleteMany()
 
     console.log('Data Destroyed...')
     process.exit()
