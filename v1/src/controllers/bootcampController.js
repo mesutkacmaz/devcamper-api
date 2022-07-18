@@ -54,7 +54,7 @@ exports.createBootcamp = asyncHandler(async (req, res, next) => {
 })
 
 // @desc      Update bootcamp
-// @route     PUT /api/v1/bootcamps/:id
+// @route     PATCH /api/v1/bootcamps/:id
 // @access    Private
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
   let bootcamp = await Bootcamp.findById(req.params.id)
@@ -138,7 +138,7 @@ exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
 })
 
 // @desc      Upload photo for bootcamp
-// @route     PUT /api/v1/bootcamps/:id/photo
+// @route     PATCH /api/v1/bootcamps/:id/photo
 // @access    Private
 exports.uploadBootcampPhoto = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findById(req.params.id)

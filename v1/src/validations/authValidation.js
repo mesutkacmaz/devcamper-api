@@ -16,8 +16,13 @@ const forgotPasswordValidation = Joi.object({
   email: Joi.string().email().required(),
 })
 
+const resetPasswordValidation = Joi.object({
+  password: Joi.string().required().min(6),
+})
+
 module.exports = {
   registerValidation,
   loginValidation,
   forgotPasswordValidation,
+  resetPasswordValidation,
 }

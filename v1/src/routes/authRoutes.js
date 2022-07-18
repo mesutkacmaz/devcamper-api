@@ -7,6 +7,7 @@ const {
   login,
   getMe,
   forgotPassword,
+  resetPassword,
 } = require('../controllers/authController')
 
 const router = express.Router()
@@ -18,6 +19,11 @@ router.post(
   '/forgot-password',
   validate(schemas.forgotPasswordValidation),
   forgotPassword
+)
+router.patch(
+  '/reset-password/:resetToken',
+  validate(schemas.resetPasswordValidation),
+  resetPassword
 )
 
 module.exports = router
