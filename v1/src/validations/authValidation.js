@@ -12,7 +12,12 @@ const loginValidation = Joi.object({
   password: Joi.string().required().min(6),
 })
 
+const forgotPasswordValidation = Joi.object({
+  email: Joi.string().email().required(),
+})
+
 module.exports = {
   registerValidation,
   loginValidation,
+  forgotPasswordValidation,
 }
