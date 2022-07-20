@@ -1,3 +1,5 @@
 module.exports.bootcampRoutes = require('./bootcampRoutes')
 module.exports.courseRoutes = require('./courseRoutes')
 module.exports.authRoutes = require('./authRoutes')
+module.exports.userRoutes = require('./userRoutes')
+module.exports.reviewRoutes = require('./reviewRoutes')

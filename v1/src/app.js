@@ -5,7 +5,13 @@ const fileUpload = require('express-fileupload')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
-const { bootcampRoutes, courseRoutes, authRoutes } = require('./routes/index')
+const {
+  bootcampRoutes,
+  courseRoutes,
+  authRoutes,
+  userRoutes,
+  reviewRoutes,
+} = require('./routes/index')
 
 config()
 loaders()
@@ -30,6 +36,8 @@ const server = app.listen(process.env.APP_PORT, () => {
   app.use('/api/v1/bootcamps', bootcampRoutes)
   app.use('/api/v1/courses', courseRoutes)
   app.use('/api/v1/auth', authRoutes)
+  app.use('/api/v1/users', userRoutes)
+  app.use('/api/v1/reviews', reviewRoutes)
   app.use(errorHandler)
 })
 

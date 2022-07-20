@@ -13,11 +13,13 @@ const {
   uploadBootcampPhoto,
 } = require('../controllers/bootcampController')
 const courseRouter = require('./courseRoutes')
+const reviewRouter = require('./reviewRoutes')
 const Bootcamp = require('../models/Bootcamp')
 
 const router = express.Router()
 
 router.use('/:bootcampId/courses', courseRouter)
+router.use('/:bootcampId/reviews', reviewRouter)
 
 router
   .route('/')
