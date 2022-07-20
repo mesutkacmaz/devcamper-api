@@ -2,6 +2,12 @@ const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const fileUpload = require('express-fileupload')
+const helmet = require('helmet')
+const xss = require('xss-clean')
+const rateLimit = require('express-rate-limit')
+const hpp = require('hpp')
+const cors = require('cors')
+const mongoSanitize = require('express-mongo-sanitize')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
@@ -25,6 +31,24 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(fileUpload())
+
+app.use(mongoSanitize())
+
+app.use(helmet())
+
+app.use(xss())
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100,
+})
+
+app.use(limiter)
+
+app.use(hpp())
+
+app.use(cors())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
