@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const logger = require('../scripts/logger/reviewLogger')
 
 const ReviewSchema = new mongoose.Schema(
   {
@@ -66,6 +67,13 @@ ReviewSchema.post('save', function () {
 // Call getAverageRating before remove
 ReviewSchema.pre('remove', function () {
   this.constructor.getAverageRating(this.bootcamp)
+})
+
+ReviewSchema.post('save', (doc) => {
+  logger.log({
+    level: 'info',
+    message: doc,
+  })
 })
 
 module.exports = mongoose.model('Review', ReviewSchema)

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const logger = require('../scripts/logger/courseLogger')
 
 const CourseSchema = new mongoose.Schema(
   {
@@ -73,6 +74,13 @@ CourseSchema.post('save', function () {
 // Call getAverageCost before remove
 CourseSchema.pre('remove', function () {
   this.constructor.getAverageCost(this.bootcamp)
+})
+
+CourseSchema.post('save', (doc) => {
+  logger.log({
+    level: 'info',
+    message: doc,
+  })
 })
 
 module.exports = mongoose.model('Course', CourseSchema)
