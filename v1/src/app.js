@@ -11,6 +11,9 @@ const mongoSanitize = require('express-mongo-sanitize')
 const config = require('./config')
 const loaders = require('./loaders')
 const errorHandler = require('./middlewares/errorHandler')
+
+config()
+
 const {
   bootcampRoutes,
   courseRoutes,
@@ -19,7 +22,6 @@ const {
   reviewRoutes,
 } = require('./routes/index')
 
-config()
 loaders()
 
 const app = express()
