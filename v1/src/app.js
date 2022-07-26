@@ -52,7 +52,7 @@ app.use(hpp())
 
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../../public')))
 
 const server = app.listen(process.env.APP_PORT, () => {
   console.log(
